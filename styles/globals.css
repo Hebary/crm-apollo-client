@@ -1,26 +1,41 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+@tailwind base;
+@tailwind utilities;
+@tailwind components;
+
+
+
+.animate {
+  animation: animate .45s ease-out;
+}
+.island-moments{
+  font-family : 'Permanent marker', cursive;
+  font-size: 40px;
+  margin-top:30px;
+}
+.animate-2{
+  animation: animate-2 .7s ease-out .1s; ;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+@keyframes animate {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
   }
-  body {
-    color: white;
-    background: black;
+  100% {
+    transform: translateY(0);
+    opacity: 1;
   }
 }
+    
+@keyframes animate-2 {
+  0% {
+    opacity: 0;
+
+  }
+  100% {
+    opacity: 1;
+
+  }
+}
+    
