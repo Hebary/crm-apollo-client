@@ -6,6 +6,7 @@ import { useFormik } from "formik"
 import { Alert } from "../components/alert"
 import { useState } from "react"
 import { NextRouter, useRouter } from "next/router"
+import { Product } from "../interfaces"
 
 const CREATE_PRODUCT = gql`
     mutation newProduct($input: ProductInput!){
@@ -35,7 +36,7 @@ const GET_PRODUCTS = gql`
 interface Alert {
     message: string | null
 }
-
+ 
 const CreateProduct: NextPage = () => {
     const [alert, setAlert] = useState<Alert>();
     const router : NextRouter = useRouter()
@@ -116,6 +117,7 @@ const CreateProduct: NextPage = () => {
                             </label>
 
                             <input
+                                autoFocus
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 id="name"
                                 type="text"

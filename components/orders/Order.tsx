@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { OrderType, Product } from '../../interfaces'
+import { OrderType } from '../../interfaces'
 import { format } from 'date-fns'
 import { gql, useMutation } from '@apollo/client'
 import Swal from 'sweetalert2';
@@ -22,7 +22,7 @@ const DELETE_ORDER = gql`
 
 interface OrderProps { order: OrderType }
 type BorderClass = 'border-yellow-400' | 'border-green-500' | 'border-red-500' | ''
-type OrderStatus = 'PENDING' | 'COMPLETED' | 'CANCELED' | undefined | string
+type OrderStatus = 'PENDING' | 'COMPLETED' | 'CANCELED' | string
 
 
 export const Order: JSX.Element | any = ({ order }: OrderProps) => {
@@ -168,17 +168,13 @@ export const Order: JSX.Element | any = ({ order }: OrderProps) => {
                     </div>
         
 
-                        <button className="leading-tight text-xs uppercase px-5 hover:bg-red-800 w-lg-auto mt-5 p-2 text-white font-bold bg-red-600 transition-colors duration-300 rounded shadow-md"
+                        <button className="leading-tight text-xs uppercase px-5 hover:bg-red-800 w-lg-auto mt-5 p-2 text-white font-light bg-red-600 transition-colors duration-300 rounded shadow-md"
                             onClick={deleteOrderById}>
                             Delete order
                         </button>
                 </div>
             </div>
-
-
-
         </div>
-
     )
 }
 

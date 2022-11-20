@@ -1,8 +1,6 @@
-import { FC, useEffect } from 'react';
+import React from 'react';
 import { useQuery, gql } from '@apollo/client'
 import { NextRouter, useRouter } from 'next/router';
-import { RouteLoader } from 'next/dist/client/route-loader';
-import { HookCallbacks } from 'async_hooks';
 
 const GET_USER: any = gql`
 query getUser{
@@ -13,34 +11,35 @@ query getUser{
     }
   }`
 
-export const Header: FC = () => {
+export const Header: React.FC = () => {
 
     const router: NextRouter = useRouter();
 
-    // Apollo query
+    // Apollo query to get user data
     const { data, loading, error } = useQuery(GET_USER);
 
-   
-    
-
-    if (loading) return null;
-
-    const logout = () => {
+    const signOut = () => {
         localStorage.removeItem('token');
         router.push('/login');
     }
 
+    if (loading) return null;
 
-    return (
+    if(data.getUser===null){
+        router.push('/login');
+        return null;
+    }
+
+    return (    
                 <div className="sm:flex sm:justify-between w-full mb-7 ">
                     <p className="mr-2 mb-5 lg:mb-0 text-white text-lg   tracking-wide">Hi: {data?.getUser?.name} {data?.getUser?.lastname}
                     </p>
                     <button
-                        onClick={() => logout()}
+                        onClick={() => signOut()} 
                         type="button"
-                        className="bg-black w-full sm:w-auto font-light tracking-widest px-2 text-xs py-1 text-white shadow-md hover:bg-gray-900 transition-colors duration-300"
+                        className="bg-gray-900 font-semibold  w-full sm:w-auto  tracking-widest px-4 text-xs py-2 rounded-lg text-white shadow-md hover:bg-black bg-opacity-70 transition-colors duration-300"
                     >
-                        Log out
+                        Sign out
                     </button>
                 </div>
 

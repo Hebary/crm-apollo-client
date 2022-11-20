@@ -6,6 +6,7 @@ import { gql, useMutation } from '@apollo/client';
 import { NextRouter, useRouter } from 'next/router'
 import { NextPage } from 'next';
 import { Alert } from '../components/alert';
+import Link from 'next/link';
 
 const AUTH_USER = gql`
   mutation authUser($input: AuthInput){
@@ -37,6 +38,8 @@ const Login : NextPage = () => {
         const token = localStorage.getItem('token');
         if(token) {
             router.push('/');
+        } else {
+            router.push('/login');
         }
     },[authUser])
 
@@ -48,9 +51,9 @@ const Login : NextPage = () => {
         validationSchema: Yup.object({
             email: Yup.string()
                         .email('Thats a not valid email')
-                        .required('Email is required'),
+                        .required('Email field is required'),
             password: Yup.string()
-                        .required('Password is required')
+                        .required('Password field is required')
         }), 
         onSubmit: async values => {
             const { email, password } = values;
@@ -89,7 +92,7 @@ const Login : NextPage = () => {
 
 
 
-    const showMessage = () : Element | any => {
+    const showMessage = () : Element | Element[] | any => {
       return (
           <Alert message={alert?.message}/>
       )
@@ -115,6 +118,7 @@ const Login : NextPage = () => {
                                 </label>
 
                                 <input
+                                    autoFocus
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     id="email"
                                     type="email"
@@ -157,9 +161,14 @@ const Login : NextPage = () => {
 
                             <input
                                 type="submit"
-                                className="transition-colors duration-300 bg-gray-800 w-full mt-5 p-2 text-white hover:cursor-pointer hover:bg-black"
+                                className="transition-colors duration-300 bg-gray-800 w-full mt-5 p-2 text-white hover:cursor-pointer hover:bg-gray-900"
                                 value="Log in"
                             />
+                            <div>
+                                <p className="text-center text-sm mt-5">Don't have an account?
+                                    <Link href="/create-account" className="text-blue-800 ml-3 hover:text-black">Create account</Link>
+                                </p>
+                            </div>
 
                         </form>
                     </div>

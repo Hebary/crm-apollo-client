@@ -2,7 +2,7 @@ import { NextPage } from 'next'
 import { Layout } from '../components/layout'
 import { useQuery, gql } from '@apollo/client'
 import Link from 'next/link';
-import { Client } from '../components/clientui';
+import { Client } from '../components/clientui'
 import { useEffect } from 'react';
 
 const Home: NextPage | any = () => {
@@ -41,7 +41,7 @@ useEffect(() => {
   }
 }, [startPolling, stopPolling])
 if(loading) return 'loading.....'
-    
+    if(!data) return null
   const { getClientsBySeller } = data
   
   return (

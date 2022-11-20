@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import { useMutation, gql } from '@apollo/client';
 import { Layout } from '../components/layout';
 import { Alert } from '../components/alert'
+import Link from 'next/link';
 
 const NEW_ACCOUNT = gql`
   mutation newUser($input : UserInput!){
@@ -115,6 +116,7 @@ const CreateAccount = () => {
                                 </label>
 
                                 <input
+                                    autoFocus
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     id="name"
                                     type="text"
@@ -200,10 +202,14 @@ const CreateAccount = () => {
 
                             <input
                                 type="submit"
-                                className="transition-colors duration-300 bg-gray-800 w-full mt-5 p-2 text-white hover:cursor-pointer hover:bg-black"
+                                className="transition-colors duration-300 bg-gray-800 w-full mt-3 p-2 text-white hover:cursor-pointer hover:bg-gray-900"
                                 value="Crete account"
                             />
-
+                            <div>
+                                <p className="text-center mt-5 text-sm ">Already have an account? 
+                                <Link href="/login" className='ml-3 text-blue-700 hover:text-black'>Login</Link>
+                                </p>
+                            </div>
                         </form>
                     </div>
                 </div>
