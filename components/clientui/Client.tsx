@@ -17,20 +17,7 @@ const DELETE_CLIENT = gql`
     mutation deleteClient( $id: ID! ){
         deleteClient( id: $id )
     }
-`
-
-// const GET_CLIENTS_BY_SELLER = gql`
-//     query getClientsBySeller{
-//         getClientsBySeller{
-//             name
-//             lastname
-//             phone
-//             company
-//             email
-//             id
-//         }
-//     }
-// `
+`;
 
 export const Client: FC<ClientProps> = ({ client }: ClientProps) => {
 
@@ -41,26 +28,8 @@ export const Client: FC<ClientProps> = ({ client }: ClientProps) => {
         }
     })
 
-    //# Long way to delete a client
-    // const [deleteClient] = useMutation(DELETE_CLIENT,{
-    //     update(cache){
-    //         const { getClientsBySeller } : any = cache.readQuery({
-    //             query: GET_CLIENTS_BY_SELLER
-    //         })
-
-    //         cache.writeQuery({
-    //             query: GET_CLIENTS_BY_SELLER,
-    //             data: {
-    //                 getClientsBySeller: getClientsBySeller.filter( (actualClient: ClientProps) => actualClient.id !== client.id )
-    //             }
-    //         })
-    //     }
-
-    // })
-
 
     const { name, lastname, company, email, id } = client
-
 
     const confirmDeleteClient = () => {
         Swal.fire({
@@ -81,7 +50,6 @@ export const Client: FC<ClientProps> = ({ client }: ClientProps) => {
                             id
                         }
                     })
-                    // console.log(data)
                     Swal.fire(
                         'Deleted!',
                         data.deleteClient,
@@ -93,7 +61,6 @@ export const Client: FC<ClientProps> = ({ client }: ClientProps) => {
             }
         })
     }
-
     const editClient = () => {
         Router.push({
             pathname: '/edit-client/[id]',
