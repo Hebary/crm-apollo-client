@@ -31,13 +31,13 @@ export const Header: React.FC = () => {
     }
 
     return (    
-                <div className="sm:flex sm:justify-between w-full mb-7 ">
-                    <p className="mr-2 mb-5 lg:mb-0 text-white text-lg   tracking-wide">Hi: {data?.getUser?.name} {data?.getUser?.lastname}
+                <div className="sm:flex pb-5 border-b border-gray-600 sm:justify-between w-full mb-7 ">
+                    <p className="mr-2 mb-5 lg:mb-0 text-white text-lg tracking-wide">Hi: {data?.getUser?.name} {data?.getUser?.lastname}
                     </p>
                     <button
                         onClick={() => signOut()} 
                         type="button"
-                        className="bg-gray-900 font-semibold  w-full sm:w-auto  tracking-widest px-4 text-xs py-2 rounded-lg text-white shadow-md hover:bg-black bg-opacity-70 transition-colors duration-300"
+                        className="bg-gray-900 font-semibold w-full sm:w-auto tracking-widest px-4 text-xs py-2 rounded-lg text-white shadow-md hover:bg-black bg-opacity-70 transition-colors duration-300"
                     >
                         Sign out
                     </button>

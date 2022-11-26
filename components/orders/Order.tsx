@@ -25,7 +25,7 @@ type BorderClass = 'border-yellow-400' | 'border-green-500' | 'border-red-500' |
 type OrderStatus = 'PENDING' | 'COMPLETED' | 'CANCELED' | string
 
 
-export const Order: JSX.Element | any = ({ order }: OrderProps) => {
+export function Order({ order }: OrderProps) : JSX.Element {
     console.log()
     const [updateOrder] = useMutation(UPDATE_ORDER)
     const [deleteOrder] = useMutation(DELETE_ORDER, {
@@ -85,7 +85,7 @@ export const Order: JSX.Element | any = ({ order }: OrderProps) => {
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, delete it!'
-        }).then(async (result) => { // doing then async
+        }).then(async (result) => { //to async
             if (result.isConfirmed) {
 
                 try {
@@ -94,7 +94,6 @@ export const Order: JSX.Element | any = ({ order }: OrderProps) => {
                             id: order.id
                         }
                     })
-                    // console.log(data)
                     Swal.fire(
                         'Deleted!',
                         data.deleteOrder,
@@ -107,15 +106,14 @@ export const Order: JSX.Element | any = ({ order }: OrderProps) => {
         })
     }
 
-
     return (
-        <div className={` ${classes} animate-2 border-t-4 mt-4 bg-gray-300 rounded p-6 md:grid md:grid-cols-2 md:gap-6 shadow-lg `}>
+        <div className={` ${classes} animate-2 cursor-pointer bg-top-order bg-gray-700 border-t-2 mt-4 rounded p-6 md:grid md:grid-cols-2 md:gap-6 shadow-lg `}>
             <div>
-                <p className="text-gray-900 mb-5 p-1  font-bold">
+                <p className="text-white mb-5 p-1 text-2xl font-semibold">
                     Client: {order.client && order.client.name} {order.client && order.client.lastname}
                 </p>
                 {order.client && (
-                    <p className="text-black text-xl font-light mb-5 flex items-center gap-3">
+                    <p className="text-white text-xl font-light mb-5 flex items-center gap-3">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
                         </svg>
@@ -123,18 +121,18 @@ export const Order: JSX.Element | any = ({ order }: OrderProps) => {
                     </p>
                 )}
                 {order.client && (
-                    <p className="text-black text-xl flex items-center gap-3 font-light">
+                    <p className="text-white text-xl flex items-center gap-3 font-light">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
                         </svg>
                         {order.client.phone}
                     </p>
                 )}
-                <p className=" p-1 inline-block rounded-lg text-gray-900 text-sm  font-bold mt-4">Company :<span className="font-light"> {order?.client?.company} </span></p>
+                <p className=" p-1 inline-block rounded-lg text-white text-md  font-bold mt-4">Company :<span className="font-light"> {order?.client?.company} </span></p>
             </div>
             <div>
                 <div>
-                    <h2 className="text-black inline-block text-lg font-light">Order status:</h2>
+                    <h2 className="text-white inline-block text-lg font-light">Order status:</h2>
 
                     <select className="mt-2 font-bold bg-gray-800 px-5 m-2 border border-blue text-center leading-tight p-2 text-white rounded focus:outline-none focus:border-blue-500 text-xs appearance-none cursor-pointer"
                         value={status}
@@ -146,32 +144,30 @@ export const Order: JSX.Element | any = ({ order }: OrderProps) => {
                     </select>
                 </div>
                 <div>
-                    <h2 className="text-black font-light text-lg mt-5 ">Order resume:</h2>
+                    <h2 className="text-white font-light text-lg mt-5 ">Order resume:</h2>
                     <ul className="mt-5">
                         {order.order.map((product: any) => (
                             <li key={product.id} className="bg-gray-400 border p-3 flex justify-between flex-wrap items-center mb-4 shadow-lg">
                                 <div className="flex items-center">
                                     <p className="text-sm font-bold text-gray-800">{product.name}</p>
-                                    <p className="text-xs text-gray-900 m-3">Quantity: {product.qty}</p>
+                                    <p className="text-xs text-white m-3">Quantity: {product.qty}</p>
                                 </div>
                                 <p className="text-gray-800 font-bold">${product.price.toFixed(2)}</p>
                             </li>
                         ))}
                     </ul>
-                    <p className="text-black p-2 pb-4 border-b border-gray-600 text-right mt-5 text-xl tracking-widest">Total: $ {order.total.toFixed(2)}</p>
+                    <p className="text-white p-2 pb-4 border-b border-gray-600 text-right mt-5 text-xl tracking-widest">Total: $ {order.total.toFixed(2)}</p>
                 </div>
 
                 <div className="sm:flex flex-wrap justify-between gap-3 items-center">
                     <div className="flex justify-between gap-2 items-center">
-                        <h2 className="text-black font-light text-lg mt-5">Order date:</h2>
-                        <p className="text-gray-800 font-sans leading-tight mt-5">{format(Number(order.createdAt), 'yyyy-MM-dd HH:mm:ss')}</p>
+                        <h2 className="text-white font-light text-lg mt-5">Order date:</h2>
+                        <p className="text-white font-sans leading-tight mt-5">{format(Number(order.createdAt), 'yyyy-MM-dd HH:mm:ss')}</p>
                     </div>
-        
-
-                        <button className="leading-tight text-xs uppercase px-5 hover:bg-red-800 w-lg-auto mt-5 p-2 text-white font-light bg-red-600 transition-colors duration-300 rounded shadow-md"
-                            onClick={deleteOrderById}>
-                            Delete order
-                        </button>
+                    <button className="leading-tight text-xs uppercase px-5 hover:bg-red-800 w-lg-auto mt-5 p-2 text-white font-light bg-red-600 transition-colors duration-300 rounded shadow-md"
+                        onClick={deleteOrderById}>
+                        Delete order
+                    </button>
                 </div>
             </div>
         </div>

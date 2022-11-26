@@ -16,7 +16,14 @@
 .animate-2{
   animation: animate-2 .7s ease-out .1s; ;
 }
-
+.bg-top:hover{
+  background: linear-gradient(111deg, #7c87ffa8 20%, #22137881);
+  transition: background 0.5s ease-in-out;
+}
+.bg-top-order:hover{
+  background: linear-gradient(111deg, #7c87ffa8 20%, #0d072d8e);
+  transition: background 0.3s ease-in-out;
+}
 @keyframes animate {
   0% {
     transform: translateY(-100%);

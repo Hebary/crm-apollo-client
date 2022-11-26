@@ -1,8 +1,8 @@
 import { NextPage } from 'next'
 import { Layout } from '../components/layout'
 import { gql, useQuery } from '@apollo/client'
-import { Product } from '../components/Product'
 import Link from 'next/link'
+import { Product } from '../components/product'
 
 
 const GET_PRODUCTS = gql`
@@ -21,7 +21,6 @@ interface Product {
     existence: number
     price: number
     id: string
-
 }
 const Products: NextPage = () => {
 
@@ -32,7 +31,7 @@ const Products: NextPage = () => {
             <Layout>
                 <h1 className="text-2xl text-white font-light">Products</h1>
                 <Link href="/create-product">
-                    <span className="bg-gray-800 py-2 px-5 mt-3 inline-block text-white text-sm transition-colors duration-300 hover:bg-gray-900 mb-3 font-bold w-full    lg:w-auto text-center">New Product</span>
+                    <span className="bg-gray-800 py-2 px-5 mt-3 inline-block text-white text-sm transition-colors duration-300 hover:bg-gray-900 mb-3 font-bold w-full border border-gray-600 rounded-md lg:w-auto text-center">New Product</span>
                 </Link>
                 <div className="overflow-x-scroll">
                     <table className="table-auto shadow-md mt-10 w-full animate-2 w-lg">
