@@ -31,11 +31,9 @@ const GET_ORDERS = gql`
   }
 `;
 
-const Orders: NextPage = () => {
+export default function Orders() : JSX.Element{
 
-  const { data, loading, error } = useQuery(GET_ORDERS);
-  if(!data) return null;
-  if(loading) return null;
+  const { data ,loading } = useQuery(GET_ORDERS);
   return (
     <Layout>
       <h1 className="font-light text-white text-2xl">Orders</h1>
@@ -52,8 +50,6 @@ const Orders: NextPage = () => {
          />
         ))
       }
-
     </Layout>
   )
 }
-export default Orders;

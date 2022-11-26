@@ -16,6 +16,10 @@
 .animate-2{
   animation: animate-2 .7s ease-out .1s; ;
 }
+
+.animate-3{
+  animation: animate-3 .7s ease-out .1s; ;
+}
 .bg-top:hover{
   background: linear-gradient(111deg, #7c87ffa8 20%, #22137881);
   transition: background 0.5s ease-in-out;
@@ -45,4 +49,3 @@
 
   }
 }
-    
