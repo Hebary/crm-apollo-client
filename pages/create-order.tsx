@@ -1,14 +1,14 @@
-import { Layout } from '../components/layout'
+import { NextRouter, useRouter } from 'next/router';
 import { NextPage } from 'next';
-import { ClientAsignment, Summary, Total } from '../components/orders';
+import { Layout } from '../components/layout'
 import { useContext, useState } from 'react';
 import OrderCtx from '../context/OrderCtx'
-import { ProductAsignment } from '../components/orders';
-import { gql, useMutation, useQuery } from '@apollo/client';
-import { Product } from '../interfaces';
+import { gql, useMutation } from '@apollo/client';
 import Swal from 'sweetalert2';
-import { NextRouter, useRouter } from 'next/router';
-import { Alert } from '../components/alert';
+import { Product } from '../interfaces';
+import { ClientAsignment, Summary, Total } from '../components/ui';
+import { ProductAsignment } from '../components/ui';
+import { Alert } from '../components/ui';
 
 
 const NEW_ORDER = gql`
@@ -30,7 +30,7 @@ const GET_ORDERS = gql`
         message: string | null
     }
 
-const CreateOrder: NextPage = () => {
+function CreateOrder(): JSX.Element  {
     
     const router : NextRouter = useRouter();
 
@@ -126,5 +126,4 @@ const CreateOrder: NextPage = () => {
         </Layout>
     )
 }
-
-export default CreateOrder
+export default CreateOrder;

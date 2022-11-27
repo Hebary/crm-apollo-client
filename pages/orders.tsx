@@ -2,7 +2,7 @@ import { gql, useQuery } from '@apollo/client'
 import { NextPage } from 'next'
 import Link from 'next/link'
 import { Layout } from '../components/layout'
-import { Order } from '../components/orders';
+import { Order } from '../components/ui';
 import { OrderType } from '../interfaces';
 
 const GET_ORDERS = gql`
@@ -38,7 +38,7 @@ export default function Orders() : JSX.Element{
     <Layout>
       <h1 className="font-light text-white text-2xl">Orders</h1>
       <Link href="/create-order">
-        <span className="bg-gray-800 py-2 px-5 mt-3 inline-block text-white text-sm transition-colors duration-300 hover:bg-gray-900 mb-3 font-bold w-full lg:w-auto text-center">New Order</span>
+        <span className="bg-gray-800 border border-gray-600 rounded-md py-2 px-5 mt-3 inline-block text-white text-sm transition-colors duration-300 hover:bg-gray-900 mb-3 font-bold w-full lg:w-auto text-center">New Order</span>
       </Link>
       { 
         loading ? <p className="text-white">Loading...</p> :

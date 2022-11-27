@@ -2,7 +2,7 @@ import { NextPage } from 'next'
 import { Layout } from '../components/layout'
 import { gql, useQuery } from '@apollo/client'
 import Link from 'next/link'
-import { Product } from '../components/product'
+import { Product } from '../components/ui'
 
 
 const GET_PRODUCTS = gql`

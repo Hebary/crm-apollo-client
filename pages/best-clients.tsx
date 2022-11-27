@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import { Layout } from '../components/layout'
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { gql, useQuery } from '@apollo/client';
-import { NextPage } from 'next';
 
 const GET_BEST_CLIENTS = gql`
     query getBestClients {
@@ -15,9 +14,9 @@ const GET_BEST_CLIENTS = gql`
         }
     }
 `;  	
-const Bestclients : NextPage | any = ()=> {
+ const BestClients : React.FC = () =>  {
 
-    const { data, loading, error, startPolling, stopPolling } = useQuery(GET_BEST_CLIENTS);
+    const { data, startPolling, stopPolling } = useQuery(GET_BEST_CLIENTS);
 
 
     useEffect(() => {
@@ -28,8 +27,6 @@ const Bestclients : NextPage | any = ()=> {
         }
     }, [startPolling, stopPolling])
 
-    if(loading) return 'Loading...';
-    if(!data) return 'Loading...'
 
     const clientGraph : any = [];
     data?.getBestClients.map((client : any, index : any)  => {
@@ -71,7 +68,5 @@ const Bestclients : NextPage | any = ()=> {
 
 
 
+export default BestClients;
 
-
-
-export default Bestclients

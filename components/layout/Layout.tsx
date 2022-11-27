@@ -1,8 +1,8 @@
 import { FC } from "react"
-import { Sidebar } from "../sidebar"
+import { Sidebar } from "../ui"
 import Head from "next/head"
 import { useRouter } from 'next/router'
-import { Header } from "../header"
+import { Header } from "../ui"
 
 
 interface Props {

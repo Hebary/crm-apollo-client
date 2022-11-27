@@ -5,7 +5,7 @@ import * as Yup from 'yup'
 import { gql, useMutation } from '@apollo/client';
 import { NextRouter, useRouter } from 'next/router'
 import { NextPage } from 'next';
-import { Alert } from '../components/alert';
+import { Alert } from '../components/ui';
 import { Client } from '../interfaces';
 
 

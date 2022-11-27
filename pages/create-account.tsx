@@ -4,7 +4,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useMutation, gql } from '@apollo/client';
 import { Layout } from '../components/layout';
-import { Alert } from '../components/alert'
+import { Alert } from '../components/ui'
 import Link from 'next/link';
 
 const NEW_ACCOUNT = gql`

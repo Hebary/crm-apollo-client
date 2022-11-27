@@ -1,12 +1,10 @@
 import { gql, useMutation, useQuery } from "@apollo/client"
 import Swal from 'sweetalert2'
-import { NextPage } from "next"
 import { Layout } from "../components/layout"
 import { useFormik } from "formik"
-import { Alert } from "../components/alert"
+import { Alert } from "../components/ui"
 import { useState } from "react"
 import { NextRouter, useRouter } from "next/router"
-import { Product } from "../interfaces"
 
 const CREATE_PRODUCT = gql`
     mutation newProduct($input: ProductInput!){
@@ -37,7 +35,7 @@ interface Alert {
     message: string | null
 }
  
-const CreateProduct: NextPage = () => {
+const CreateProduct: React.FC = () => {
     const [alert, setAlert] = useState<Alert>();
     const router : NextRouter = useRouter()
     // const {getProducts} = useQuery(GET_PRODUCTS);

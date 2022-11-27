@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import { Layout } from '../components/layout'
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { gql, useQuery } from '@apollo/client';
-import { NextPage } from 'next';
 
 const GET_BEST_SELLERS = gql`
     query getBestSellers {
@@ -15,7 +14,7 @@ const GET_BEST_SELLERS = gql`
         }
     }
 `;  	
-const BestSellers : NextPage | any = ()=> {
+const BestSellers : React.FC = () =>  {
 
     const { data, loading, error, startPolling, stopPolling } = useQuery(GET_BEST_SELLERS);
 
@@ -28,8 +27,6 @@ const BestSellers : NextPage | any = ()=> {
         }
     }, [startPolling, stopPolling])
 
-    if(loading) return 'Loading...';
-    if(!data) return 'Loading...'
 
     const sellerGraph : any = [];
     data?.getBestSellers.map((seller : any, index : any)  => {
@@ -68,48 +65,6 @@ const BestSellers : NextPage | any = ()=> {
         </Layout>
     )
 }
-
-const data = [
-    {
-        name: 'Page A',
-        pv: 2400,
-        amt: 2400,
-    },
-    {
-        name: 'Page B',
-        pv: 1398,
-        amt: 2210,
-    },
-    {
-        name: 'Page C',
-        pv: 9800,
-        amt: 2290,
-    },
-    {
-        name: 'Page D',
-        pv: 3908,
-        amt: 2000,
-    },
-    {
-        name: 'Page E',
-        pv: 4800,
-        amt: 2181,
-    },
-    {
-        name: 'Page F',
-        pv: 3800,
-        amt: 2500,
-    },
-    {
-        name: 'Page G',
-        pv: 4300,
-        amt: 2100,
-    },
-];
-
-
-
-
 
 
 
