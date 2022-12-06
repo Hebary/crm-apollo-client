@@ -18,17 +18,12 @@ const NEW_ACCOUNT = gql`
 }
 `;
 
+const CreateAccount: React.FC = () : JSX.Element => {
 
-interface AlertProps {
-    message: string | null
-}
-
-
-const CreateAccount = () => {
 
   
     // State para el mensaje
-    const [alert, setAlert] = useState<AlertProps>();
+    const [alert, setAlert] = useState<string>();
 
     // Mutation to create new User
     const [ newUser ] = useMutation(NEW_ACCOUNT);
@@ -74,19 +69,19 @@ const CreateAccount = () => {
                 console.log(data);
 
                 // User created successfully
-                setAlert({message: 'User created successfully'});
+                setAlert( 'User created successfully');
                 console.log(alert);
                 setTimeout(() => {
-                    setAlert({message: null});
+                    setAlert('');
                     router.push('/login')
                 }, 3000);
 
             // Redirect user to login
             } catch (error : any) {
-                setAlert({message: error.message.replace('GraphQL error: ', '')});
+                setAlert( error.message.replace('GraphQL error: ', ''));
               console.log(error);
                 setTimeout(() => {
-                    setAlert({message: null});
+                    setAlert('');
                 }, 3000);
             }
         }
@@ -94,7 +89,7 @@ const CreateAccount = () => {
 
     const showMessage = () : Element | any => {
         return (
-            <Alert message={alert?.message}/>
+            <Alert message={alert}/>
         )
     }
 
@@ -103,7 +98,7 @@ const CreateAccount = () => {
             <Layout> 
                 <h1 className="text-center text-3xl animate text-white font-light">Create Account</h1>
 
-                {alert?.message && showMessage()}
+                {alert && showMessage()}
                 <div className="flex justify-center mt-5 animate">
                     <div className="w-full max-w-sm">
                         <form

@@ -1,6 +1,6 @@
 import { gql, useQuery } from '@apollo/client'
-import { NextPage } from 'next'
 import Link from 'next/link'
+import React from 'react';
 import { Layout } from '../components/layout'
 import { Order } from '../components/ui';
 import { OrderType } from '../interfaces';
@@ -31,7 +31,8 @@ const GET_ORDERS = gql`
   }
 `;
 
-export default function Orders() : JSX.Element{
+const Orders : React.FC = () : JSX.Element => {
+
 
   const { data ,loading } = useQuery(GET_ORDERS);
   return (
@@ -53,3 +54,5 @@ export default function Orders() : JSX.Element{
     </Layout>
   )
 }
+
+export default Orders

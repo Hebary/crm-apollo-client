@@ -14,10 +14,9 @@ const GET_BEST_SELLERS = gql`
         }
     }
 `;  	
-const BestSellers : React.FC = () =>  {
+const BestSellers : React.FC = () : JSX.Element =>  {
 
     const { data, loading, error, startPolling, stopPolling } = useQuery(GET_BEST_SELLERS);
-
 
     useEffect(() => {
         // if theres a change in the data, then startPolling will get new Data

@@ -14,7 +14,7 @@ const GET_BEST_CLIENTS = gql`
         }
     }
 `;  	
- const BestClients : React.FC = () =>  {
+ const BestClients : React.FC = () : JSX.Element =>  {
 
     const { data, startPolling, stopPolling } = useQuery(GET_BEST_CLIENTS);
 

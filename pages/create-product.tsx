@@ -31,28 +31,27 @@ const GET_PRODUCTS = gql`
 
 `
 
-interface Alert {
-    message: string | null
-}
- 
-const CreateProduct: React.FC = () => {
-    const [alert, setAlert] = useState<Alert>();
-    const router : NextRouter = useRouter()
+
+
+const CreateProduct: React.FC = (): JSX.Element => {
+
+    const [alert, setAlert] = useState<string>();
+    const router: NextRouter = useRouter()
     // const {getProducts} = useQuery(GET_PRODUCTS);
-    
-    const [ newProduct ] =  useMutation( CREATE_PRODUCT, {
-        update(cache, { data: { newProduct  } } ) {
-        // get current cache object that we would like to update
-        const { getProducts } : any = cache.readQuery({ query: GET_PRODUCTS });
-        // Overwrite cache  (the cache never must be changed, only overwritten) 
-        cache.writeQuery({
-            query: GET_PRODUCTS,
-            data: {
-                getProducts : [...getProducts, newProduct ]
-            }
-        })
-    }
-})
+
+    const [newProduct] = useMutation(CREATE_PRODUCT, {
+        update(cache, { data: { newProduct } }) {
+            // get current cache object that we would like to update
+            const { getProducts }: any = cache.readQuery({ query: GET_PRODUCTS });
+            // Overwrite cache  (the cache never must be changed, only overwritten) 
+            cache.writeQuery({
+                query: GET_PRODUCTS,
+                data: {
+                    getProducts: [...getProducts, newProduct]
+                }
+            })
+        }
+    })
 
     const formik = useFormik({
         initialValues: {
@@ -79,29 +78,25 @@ const CreateProduct: React.FC = () => {
                     'success'
                 )
                 router.push('/products')
-            } catch (error : any) {
-                setAlert({
-                    message: error.message
-                })
+            } catch (error: any) {
+                setAlert(error.message)
                 setTimeout(() => {
-                    setAlert({
-                        message: null
-                    })
+                    setAlert('')
                 }, 3000)
             }
         }
     })
 
-    const showMessage = () : JSX.Element | any => {
+    const showMessage = (): JSX.Element | any => {
         return (
-            <Alert message={alert?.message} />
+            <Alert message={alert} />
         )
     }
 
     return (
         <Layout>
             <h1 className="text-2xl text-white font-light">Create new product</h1>
-            {alert?.message && showMessage() }
+            {alert && showMessage()}
 
             <div className="flex justify-center mt-5 animate">
                 <div className="w-full max-w-lg">

@@ -2,9 +2,9 @@ import { Layout } from '../components/layout'
 import { useQuery, gql } from '@apollo/client'
 import Link from 'next/link';
 import { Client } from '../components/ui'
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 
-export default function Home() : JSX.Element {
+const IndexPage : React.FC = () : JSX.Element => {
   interface Client {
     id: string
     name: string
@@ -65,3 +65,5 @@ export default function Home() : JSX.Element {
     </>
   )
 }
+
+export default IndexPage

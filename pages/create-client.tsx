@@ -10,9 +10,6 @@ import { Client } from '../interfaces';
 
 
 
-interface Alert {
-    message: string | null
-}
 
 
 const NEW_CLIENT = gql`
@@ -41,13 +38,12 @@ const GET_CLIENTS_BY_SELLER = gql`
         }
     }
 `;
-
-const CreateClient : NextPage = () => {
+const CreateClient : React.FC = () : JSX.Element => {
 
     const router : NextRouter = useRouter();
 
     //Alert msgs
-    const [alert, setAlert] = useState<Alert>();
+    const [alert, setAlert] = useState<string>();
 
     // Mutation for create new clients
         const [ newClient ] =  useMutation( NEW_CLIENT, {
@@ -100,29 +96,27 @@ const CreateClient : NextPage = () => {
                     }
                 });
                 console.log(data.newClient);
-                setAlert({message:'Client created successfully'});
+                setAlert('Client created successfully');
 
                 // redirect to clients
                 setTimeout(() => {
-                    setAlert({message: null});
+                    setAlert('');
                     router.push('/');
                 }, 3000);
 
 
             } catch (error : any) {
                 // console.log(error)
-                setAlert({message:error.message.replace('GraphQL error: ', '')});
+                setAlert(error.message.replace('GraphQL error: ', ''));
 
-                setTimeout(() => setAlert( 
-                    {message:null} 
-                    ), 3000);
+                setTimeout(() => setAlert(''), 3000);
             }
         }
     })
 
     const showMessage = () : any => {
         return(
-            <Alert message={alert?.message} />
+            <Alert message={alert} />
         )
     }
 
@@ -130,7 +124,7 @@ const CreateClient : NextPage = () => {
         <Layout>
         <h1 className="font-light text-white text-2xl tracking-widest">New Client</h1>
 
-            {alert?.message && showMessage() }
+            {alert && showMessage() }
 
             <div className="flex justify-center mt-5 animate">
                 <div className="w-full max-w-lg">

@@ -1,10 +1,9 @@
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { Layout } from '../components/layout';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { gql, useMutation } from '@apollo/client';
 import { NextRouter, useRouter } from 'next/router'
-import { NextPage } from 'next';
 import { Alert } from '../components/ui';
 import Link from 'next/link';
 
@@ -18,30 +17,17 @@ const AUTH_USER = gql`
 
 
 
-interface AlertProps {
-    message: string | null
-}
-
-
-const Login : NextPage = () => {
+const Login : React.FC  = () : JSX.Element => {
 
     // routing
     const router : NextRouter = useRouter();
     
 
-    const [alert, setAlert] = useState<AlertProps>();
+    const [alert, setAlert] = useState<string>();
 
     // Mutation to create new Users in apollo
     const [ authUser ] = useMutation(AUTH_USER);
 
-    useEffect(() => {
-        const token = localStorage.getItem('token');
-        if(token) {
-            router.push('/');
-        } else {
-            router.push('/login');
-        }
-    },[authUser])
 
     const formik = useFormik({
         initialValues: {
@@ -67,24 +53,23 @@ const Login : NextPage = () => {
                         }
                     }
                 });
-                setAlert({message:'Checking data...'});
+                setAlert('Checking data...');
 
                 // Save token in storage
-                setTimeout(() => {
-                    const { token } = data.authUser;
-                    localStorage.setItem('token', token);
-                }, 1000);
+                const { token } = data?.authUser;
+                localStorage.setItem('token', token);
              
                 // Redirect to clients page
                 setTimeout(() => {
-                  setAlert({message:'Redirecting...'});
-                  router.push('/');
-                }, 3000);
+                    router.push('/');
+                }
+                , 3000);
 
             } catch (error : any) {
-                setAlert({ message:error.message.replace('GraphQL error: ', '') });
+                setAlert( error.message.replace('GraphQL error: ', '') );
+                
                 setTimeout(() => {
-                  setAlert({message:null});
+                  setAlert('');
                 }, 3000);
             }
         }
@@ -94,7 +79,7 @@ const Login : NextPage = () => {
 
     const showMessage = () : Element | Element[] | any => {
       return (
-          <Alert message={alert?.message}/>
+          <Alert message={alert}/>
       )
   }
 
@@ -104,7 +89,7 @@ const Login : NextPage = () => {
         <>
             <Layout>
 
-              {alert?.message && showMessage() }
+              {alert && showMessage() }
               <h1 className="text-center text-3xl text-white font-light">Login</h1>
                 <div className="flex justify-center mt-5">
                     <div className="w-full max-w-sm">

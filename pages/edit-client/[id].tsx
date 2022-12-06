@@ -4,7 +4,6 @@ import { Formik } from 'formik'
 import * as Yup from 'yup';
 import { gql, useMutation, useQuery } from '@apollo/client';
 import Swal from 'sweetalert2';
-import { NextPage } from 'next';
 import { useEffect } from 'react';
 
 const GET_CLIENT_BY_ID = gql`
@@ -31,7 +30,7 @@ mutation updateClient($id: ID!, $input:ClientInput){
 }
 }
 `;
-const EditClient = () => {
+const EditClient : React.FC = () : JSX.Element => {
 
   const router : NextRouter = useRouter()
 
@@ -39,7 +38,7 @@ const EditClient = () => {
   const { query: { id } } = useRouter()
   // console.log(id)
 
-  const { data, loading, error, startPolling, stopPolling} = useQuery(GET_CLIENT_BY_ID, {
+  const { data, startPolling, stopPolling} = useQuery(GET_CLIENT_BY_ID, {
     variables: {
       id
     }
@@ -68,11 +67,7 @@ const EditClient = () => {
                 .required('Email is required'),
 });
 
-if(loading) return 'Loading...';
 
-if(!data) { 
-    return 'Action not allowed';
-}
 
   //Modify clients en la DB
   const updateInfoClient = async (values : any) => {
@@ -105,7 +100,6 @@ if(!data) {
               }
             }
 
-            const{getClientById} = data;
   return (
     <Layout>
       <h1 className="font-light text-white text-2xl tracking-wider">Edit Client</h1>
@@ -114,7 +108,7 @@ if(!data) {
         <div className="w-full max-w-lg">
           {!data ? <p>Loading...</p> :
           <Formik 
-            initialValues={getClientById}
+            initialValues={data?.getClientById}
             enableReinitialize
             validationSchema={schemaValidation}
 

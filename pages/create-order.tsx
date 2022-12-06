@@ -1,7 +1,7 @@
 import { NextRouter, useRouter } from 'next/router';
 import { NextPage } from 'next';
 import { Layout } from '../components/layout'
-import { useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import OrderCtx from '../context/OrderCtx'
 import { gql, useMutation } from '@apollo/client';
 import Swal from 'sweetalert2';
@@ -26,11 +26,9 @@ const GET_ORDERS = gql`
       }
     }
   `;
-    interface Alert {
-        message: string | null
-    }
+  
 
-function CreateOrder(): JSX.Element  {
+const CreateOrder: React.FC = () : JSX.Element =>  {
     
     const router : NextRouter = useRouter();
 
@@ -50,7 +48,7 @@ function CreateOrder(): JSX.Element  {
 
     const { orderState } = useContext(OrderCtx)
     
-    const [alert, setAlert] = useState<Alert>();
+    const [alert, setAlert] = useState<string>();
 
     const orderValidator  = () => { 
         return orderState.total > 0
@@ -82,10 +80,10 @@ function CreateOrder(): JSX.Element  {
             router.push('/orders')
                 } catch (error : any) {
                     console
-            setAlert({message:error.message.replace('GraphQL error: ', '')})
+            setAlert(error.message.replace('GraphQL error: ', ''))
 
             setTimeout(() => {
-                setAlert({message: null})
+                setAlert('')
             }
             , 3000);
 
@@ -94,7 +92,7 @@ function CreateOrder(): JSX.Element  {
 
     const showMessage = () : any => {
         return(
-            <Alert message={alert?.message} />
+            <Alert message={alert} />
         )
     }
 
@@ -105,7 +103,7 @@ function CreateOrder(): JSX.Element  {
             <div className="flex justify-center">
 
                 <div className="w-full max-w-lg animate-2">
-                {alert?.message && showMessage() }
+                {alert && showMessage() }
                     <ClientAsignment />
                     <ProductAsignment />
                     <Summary/>

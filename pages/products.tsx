@@ -3,6 +3,7 @@ import { Layout } from '../components/layout'
 import { gql, useQuery } from '@apollo/client'
 import Link from 'next/link'
 import { Product } from '../components/ui'
+import React from 'react'
 
 
 const GET_PRODUCTS = gql`
@@ -24,7 +25,7 @@ interface Product {
 }
 
 
-export default function Products(): JSX.Element {
+const Products : React.FC = () : JSX.Element => {
 
     const { data, loading } = useQuery(GET_PRODUCTS);
 
@@ -66,3 +67,6 @@ export default function Products(): JSX.Element {
 
     )
 }
+
+
+export default Products

@@ -27,23 +27,22 @@ const UPDATE_PRODUCT = gql`
     }
 `;
 
-const EditProduct = ()=> {
+const EditProduct : React.FC = () : JSX.Element => {
 
     const router = useRouter();
     const { query: { id } } = router;
-    // console.log(id)
 
-    // Consultar para obtener el producto
+    //query to get product
     const { data, loading, error } = useQuery(GET_PRODUCT, {
         variables: {
             id
         }
     });
 
-    // Mutation para modificar el producto
+    // Mutation to update product
     const [ updateProduct ] = useMutation(UPDATE_PRODUCT);
 
-    // Schema de validación
+    // validation schema
     const schemaValidacion = Yup.object({
         name: Yup.string() 
                     .required('Name field is required'), 
@@ -57,18 +56,8 @@ const EditProduct = ()=> {
     });
 
 
-    // console.log(data)
-    // console.log(loading)
-    // console.log(error)
-
-    if(loading) return 'Loading...';
-
-    if(!data) { 
-        return 'Action not allower';
-    }
 
     const updateOneProduct = async (values : any) => {
-        // console.log(valores);
         const { name, existence, price } = values;
         try {
             const {data} =  await updateProduct({
@@ -98,7 +87,6 @@ const EditProduct = ()=> {
         }
     }
 
-    const { getOneProduct } = data;
 
     return ( 
         <Layout>
@@ -109,7 +97,7 @@ const EditProduct = ()=> {
 
                     <Formik 
                         enableReinitialize
-                        initialValues={getOneProduct}
+                        initialValues={data?.getOneProduct}
                         validationSchema={ schemaValidacion }
                         onSubmit={ async values => {
                             await updateOneProduct(values)
@@ -159,7 +147,7 @@ const EditProduct = ()=> {
                                     placeholder="Stock"
                                     onChange={props.handleChange}
                                     onBlur={props.handleBlur}
-                                    value={props.values.existence}
+                                    value={props?.values?.existence}
                                 />
                             </div>
 
@@ -182,7 +170,7 @@ const EditProduct = ()=> {
                                     placeholder="Product Price"
                                     onChange={props.handleChange}
                                     onBlur={props.handleBlur}
-                                    value={props.values.price}
+                                    value={props?.values?.price}
                                 />
                             </div>
 
