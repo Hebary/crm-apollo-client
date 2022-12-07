@@ -69,7 +69,7 @@ export function Order({ order }: OrderProps) : JSX.Element {
                     }
                 }
             })
-            setStatus(data.updateOrder.status)
+            setStatus(data?.updateOrder.status)
         } catch (error) {
             console.log(error)
         }
@@ -96,7 +96,7 @@ export function Order({ order }: OrderProps) : JSX.Element {
                     })
                     Swal.fire(
                         'Deleted!',
-                        data.deleteOrder,
+                         data.deleteOrder,
                         'success'
                     )
                 } catch (error) {
