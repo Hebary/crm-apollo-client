@@ -3,7 +3,7 @@ import { setContext } from 'apollo-link-context';
 
 
 const httpLink = createHttpLink({
-    uri: 'https://crm-apollo-server.vercel.app/'
+    uri: 'https://apollo-server-khoderb.onrender.com/'
 });
 
 
