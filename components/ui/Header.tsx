@@ -11,7 +11,7 @@ query getUser{
     }
   }`
 
-export const Header: React.FC = () => {
+export const Header: React.FC = () : JSX.Element=> {
 
     const router: NextRouter = useRouter();
 
@@ -23,12 +23,7 @@ export const Header: React.FC = () => {
         router.push('/login');
     }
 
-    if (loading) return null;
-
-    if(data.getUser===null){
-        router.push('/login');
-        return null;
-    }
+  
 
     return (    
                 <div className="sm:flex pb-5 border-b border-gray-600 sm:justify-between w-full mb-7 ">

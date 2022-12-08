@@ -56,14 +56,14 @@ const Login : React.FC  = () : JSX.Element => {
                 setAlert('Checking data...');
 
                 // Save token in storage
-                const { token } = data?.authUser;
+                const { token } = data.authUser;
                 localStorage.setItem('token', token);
              
                 // Redirect to clients page
                 setTimeout(() => {
                     router.push('/');
                 }
-                , 3000);
+                , 2000);
 
             } catch (error : any) {
                 setAlert( error.message.replace('GraphQL error: ', '') );
