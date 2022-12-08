@@ -18,12 +18,16 @@ export const Header: React.FC = () : JSX.Element => {
     const router: NextRouter = useRouter();
 
     // Apollo query to get user data
-    const { data } = useQuery(GET_USER);
+    const { data, startPolling, stopPolling } = useQuery(GET_USER);
 
     useEffect(() => {   
+        startPolling(100);
         setName(data?.getUser?.name);
         setLastname(data?.getUser?.lastname);
-    }, [data]);
+        return () => {
+            stopPolling();
+        }
+    }, [data, startPolling, stopPolling]);
 
     const signOut = () => {
         localStorage.removeItem('token');
