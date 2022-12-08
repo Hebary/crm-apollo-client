@@ -63,7 +63,7 @@ const Login : React.FC  = () : JSX.Element => {
                 setTimeout(() => {
                     router.push('/');
                 }
-                , 3000);
+                , 1500);
 
             } catch (error : any) {
                 setAlert( error.message.replace('GraphQL error: ', '') );
