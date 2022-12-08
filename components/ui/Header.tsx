@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useQuery, gql } from '@apollo/client'
 import { NextRouter, useRouter } from 'next/router';
 
@@ -11,12 +11,19 @@ query getUser{
     }
   }`
 
-export const Header: React.FC = () : JSX.Element=> {
+export const Header: React.FC = () : JSX.Element => {
+    const [name, setName] = React.useState<string>('');
+    const [lastname, setLastname] = React.useState<string>('');
 
     const router: NextRouter = useRouter();
 
     // Apollo query to get user data
-    const { data, loading, error } = useQuery(GET_USER);
+    const { data } = useQuery(GET_USER);
+
+    useEffect(() => {   
+        setName(data?.getUser?.name);
+        setLastname(data?.getUser?.lastname);
+    }, [data]);
 
     const signOut = () => {
         localStorage.removeItem('token');
@@ -26,8 +33,9 @@ export const Header: React.FC = () : JSX.Element=> {
   
 
     return (    
+
                 <div className="sm:flex pb-5 border-b border-gray-600 sm:justify-between w-full mb-7 ">
-                    <p className="mr-2 mb-5 lg:mb-0 text-white text-lg tracking-wide">Hi: {data?.getUser?.name} {data?.getUser?.lastname}
+                    <p className="mr-2 mb-5 lg:mb-0 text-white text-lg tracking-wide">Hi: {name} {lastname}
                     </p>
                     <button
                         onClick={() => signOut()} 
