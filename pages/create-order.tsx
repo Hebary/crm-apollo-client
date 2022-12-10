@@ -3,7 +3,7 @@ import { NextPage } from 'next';
 import { Layout } from '../components/layout'
 import React, { useContext, useState } from 'react';
 import OrderCtx from '../context/OrderCtx'
-import { gql, useMutation } from '@apollo/client';
+import { gql, IdGetter, useMutation } from '@apollo/client';
 import Swal from 'sweetalert2';
 import { Product } from '../interfaces';
 import { ClientAsignment, Summary, Total } from '../components/ui';
@@ -48,7 +48,7 @@ const CreateOrder: React.FC = () : JSX.Element =>  {
 
     const { orderState } = useContext(OrderCtx)
     
-    const [alert, setAlert] = useState<string>();
+    const [alert, setAlert] = useState<string | any>();
 
     const orderValidator  = () => { 
         return orderState.total > 0
@@ -58,7 +58,7 @@ const CreateOrder: React.FC = () : JSX.Element =>  {
         
         const { client , total } = orderState
         const order = orderState.products.map(({__typename, existence, ...product} : Product) => product)
-        const { id } : any  = client
+        const { id } : string | any  = client
         try {
             const { data } = await newOrder({
                 variables: {
@@ -86,15 +86,10 @@ const CreateOrder: React.FC = () : JSX.Element =>  {
                 setAlert('')
             }
             , 3000);
-
         }    
     }
 
-    const showMessage = () : any => {
-        return(
-            <Alert message={alert} />
-        )
-    }
+
 
 
     return (
@@ -103,7 +98,7 @@ const CreateOrder: React.FC = () : JSX.Element =>  {
             <div className="flex justify-center">
 
                 <div className="w-full max-w-lg animate-2">
-                {alert && showMessage() }
+                {alert && <Alert message={alert} /> }
                     <ClientAsignment />
                     <ProductAsignment />
                     <Summary/>

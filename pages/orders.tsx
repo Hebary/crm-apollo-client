@@ -43,8 +43,8 @@ const Orders : React.FC = () : JSX.Element => {
       </Link>
       { 
         loading ? <p className="text-white">Loading...</p> :
-        data?.getOrdersBySeller.length === 0 ? <p className="text-white">No orders yet</p> :
-        data?.getOrdersBySeller.map((order : OrderType) => (
+        data?.getOrdersBySeller?.length === 0 ? <p className="text-white">No orders yet</p> :
+        data?.getOrdersBySeller?.map((order : OrderType) => (
          <Order 
           key={order.id}
           order={order}

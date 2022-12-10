@@ -3,6 +3,7 @@ import { useQuery, gql } from '@apollo/client'
 import Link from 'next/link';
 import { Client } from '../components/ui'
 import React, { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 interface Client {
   id: string
@@ -27,26 +28,12 @@ query getClientsBySeller{
 `;
 
 const IndexPage : React.FC = () : JSX.Element => {
-
   //Apollo query
-  const { 
-    data,
-    loading,
-    startPolling,
-    stopPolling 
-  } = useQuery(GET_CLIENTS_BY_SELLER);
-
-  useEffect(() => {
-    startPolling(500)
-    return () => {
-      stopPolling()
-    }
-  }, [startPolling, stopPolling])
-
+  const { data, loading } = useQuery(GET_CLIENTS_BY_SELLER);
 
   return (
     <>
-      {(loading || (!data)) ? 'loading...' :
+      {loading ? 'Loading...' :
         <Layout>
           <h1 className="text-2xl text-white font-light">Clients</h1>
           <Link href="/create-client">

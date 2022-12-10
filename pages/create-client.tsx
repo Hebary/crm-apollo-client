@@ -43,7 +43,7 @@ const CreateClient : React.FC = () : JSX.Element => {
     const router : NextRouter = useRouter();
 
     //Alert msgs
-    const [alert, setAlert] = useState<string>();
+    const [alert, setAlert] = useState<string | any>();
 
     // Mutation for create new clients
         const [ newClient ] =  useMutation( NEW_CLIENT, {
@@ -71,16 +71,16 @@ const CreateClient : React.FC = () : JSX.Element => {
         },
         validationSchema: Yup.object({
             name: Yup.string() 
-                        .required('Name is required'),
+                        .required('Field name is required'),
             lastname: Yup.string() 
-                        .required('Lastname is required'),
+                        .required('Field lastname is required'),
             company: Yup.string() 
-                        .required('The company field is required'),
+                        .required('Field company is required'),
             email: Yup.string()
                         .email('Email not valid') 
                         .required('Email is required'),
         }), 
-        onSubmit: async (values : any ) => {
+        onSubmit: async values => {
             const { name , lastname, company, email, phone } = values
 
             try {
@@ -106,25 +106,18 @@ const CreateClient : React.FC = () : JSX.Element => {
 
 
             } catch (error : any) {
-                // console.log(error)
                 setAlert(error.message.replace('GraphQL error: ', ''));
-
                 setTimeout(() => setAlert(''), 3000);
             }
         }
     })
 
-    const showMessage = () : any => {
-        return(
-            <Alert message={alert} />
-        )
-    }
-
+    
     return ( 
         <Layout>
         <h1 className="font-light text-white text-2xl tracking-widest">New Client</h1>
 
-            {alert && showMessage() }
+            {alert && <Alert message={alert} />}
 
             <div className="flex justify-center mt-5 animate">
                 <div className="w-full max-w-lg">

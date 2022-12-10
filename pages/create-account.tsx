@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -20,10 +20,8 @@ const NEW_ACCOUNT = gql`
 
 const CreateAccount: React.FC = () : JSX.Element => {
 
-
-  
-    // State para el mensaje
-    const [alert, setAlert] = useState<string>();
+    // State for message
+    const [alert, setAlert] = useState<string | any>();
 
     // Mutation to create new User
     const [ newUser ] = useMutation(NEW_ACCOUNT);
@@ -41,9 +39,9 @@ const CreateAccount: React.FC = () : JSX.Element => {
         }, 
         validationSchema: Yup.object({
             name: Yup.string()
-                        .required('Name is required'), 
+                        .required('Field name is required'), 
             lastname: Yup.string()
-                        .required('Lastname is required'),
+                        .required('Field lastname is required'),
             email: Yup.string()
                         .email('Email is not valid')
                         .required('Email is required'),
@@ -54,7 +52,6 @@ const CreateAccount: React.FC = () : JSX.Element => {
         
         onSubmit: async values => {
             const { name, lastname, email, password } = values
-
             try {
                 const { data } = await newUser({
                     variables : {
@@ -67,7 +64,6 @@ const CreateAccount: React.FC = () : JSX.Element => {
                     }
                 });
                 console.log(data);
-
                 // User created successfully
                 setAlert( 'User created successfully');
                 console.log(alert);
@@ -87,18 +83,13 @@ const CreateAccount: React.FC = () : JSX.Element => {
         }
     });
 
-    const showMessage = () : Element | any => {
-        return (
-            <Alert message={alert}/>
-        )
-    }
+   
 
     return ( 
         <>
             <Layout> 
                 <h1 className="text-center text-3xl animate text-white font-light">Create Account</h1>
-
-                {alert && showMessage()}
+                {alert && <Alert message={alert}/> }
                 <div className="flex justify-center mt-5 animate">
                     <div className="w-full max-w-sm">
                         <form

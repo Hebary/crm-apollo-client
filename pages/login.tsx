@@ -23,7 +23,7 @@ const Login : React.FC  = () : JSX.Element => {
     const router : NextRouter = useRouter();
     
 
-    const [alert, setAlert] = useState<string>();
+    const [alert, setAlert] = useState<string | any >();
 
     // Mutation to create new Users in apollo
     const [ authUser ] = useMutation(AUTH_USER);
@@ -75,21 +75,12 @@ const Login : React.FC  = () : JSX.Element => {
         }
     })
 
-
-
-    const showMessage = () : Element | Element[] | any => {
-      return (
-          <Alert message={alert}/>
-      )
-  }
-
-
     return ( 
 
         <>
             <Layout>
 
-              {alert && showMessage() }
+              {alert && <Alert message={alert}/> }
               <h1 className="text-center text-3xl text-white font-light">Login</h1>
                 <div className="flex justify-center mt-5">
                     <div className="w-full max-w-sm">

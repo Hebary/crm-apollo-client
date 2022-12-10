@@ -35,7 +35,7 @@ const GET_PRODUCTS = gql`
 
 const CreateProduct: React.FC = (): JSX.Element => {
 
-    const [alert, setAlert] = useState<string>();
+    const [alert, setAlert] = useState<string | any>();
     const router: NextRouter = useRouter()
     // const {getProducts} = useQuery(GET_PRODUCTS);
 
@@ -87,17 +87,11 @@ const CreateProduct: React.FC = (): JSX.Element => {
         }
     })
 
-    const showMessage = (): JSX.Element | any => {
-        return (
-            <Alert message={alert} />
-        )
-    }
-
+  
     return (
         <Layout>
             <h1 className="text-2xl text-white font-light">Create new product</h1>
-            {alert && showMessage()}
-
+            {alert &&  <Alert message={alert} />}
             <div className="flex justify-center mt-5 animate">
                 <div className="w-full max-w-lg">
                     <form
