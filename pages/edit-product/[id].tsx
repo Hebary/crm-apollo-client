@@ -1,8 +1,8 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { Layout } from '../../components/layout';
 import { useRouter } from 'next/router'
 import { gql, useQuery, useMutation } from '@apollo/client'
-import { Formik } from 'formik';
+import { Formik } from 'formik';
 import * as Yup from 'yup';
 import Swal from 'sweetalert2';
 
@@ -33,7 +33,7 @@ const EditProduct : React.FC = () : JSX.Element => {
     const { query: { id } } = router;
 
     //query to get product
-    const { data, loading, error } = useQuery(GET_PRODUCT, {
+    const { data } = useQuery(GET_PRODUCT, {
         variables: {
             id
         }

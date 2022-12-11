@@ -1,21 +1,8 @@
-import { NextPage } from 'next'
-import { Layout } from '../components/layout'
-import { gql, useQuery } from '@apollo/client'
-import Link from 'next/link'
-import { Product } from '../components/ui'
 import React from 'react'
-
-
-const GET_PRODUCTS = gql`
- query getProducts{
-    getProducts{
-      name
-      existence
-      price
-      id
-    }
-}
-`
+import Link from 'next/link'
+import { gql, useQuery } from '@apollo/client'
+import { Layout } from '../components/layout'
+import { Product } from '../components/ui'
 
 interface Product {
     name: string
@@ -24,15 +11,25 @@ interface Product {
     id: string
 }
 
+const GET_PRODUCTS = gql`
+ query getProducts{
+        getProducts{
+            name
+            existence
+            price
+            id
+        }
+    }
+`;
 
 const Products : React.FC = () : JSX.Element => {
 
-    const { data, loading } = useQuery(GET_PRODUCTS);
+    const { data } = useQuery(GET_PRODUCTS);
 
     return (
         <>
             {
-                data?.getProducts.length === 0 ? <p className="text-white">No products yet</p> :
+                data?.getProducts?.length === 0 ? <p className="text-white">No products yet</p> :
                     <Layout>
                         <h1 className="text-2xl text-white font-light">Products</h1>
                         <Link href="/create-product">

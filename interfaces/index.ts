@@ -1,8 +1,3 @@
-export interface OrderState {
-    client: {},
-    products: [],
-    total: 0
-}
 
 export interface ClientType {
     name: string;
@@ -13,6 +8,11 @@ export interface ClientType {
     phone?: string;
 }
 
+export interface OrderState {
+    client:  ClientType,
+    products: Product[],
+    total: 0
+} 
 export interface Product {
     name: string;
     price: number;
@@ -21,10 +21,6 @@ export interface Product {
     qty? :number
     __typename?: string
 
-}
-
-export interface Products {
-    products: Product[];
 }
 
 export type OrderType = {

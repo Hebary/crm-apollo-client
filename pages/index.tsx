@@ -2,7 +2,7 @@ import { Layout } from '../components/layout'
 import { useQuery, gql } from '@apollo/client'
 import Link from 'next/link';
 import { Client } from '../components/ui'
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ClientType } from '../interfaces';
 
 
@@ -22,7 +22,16 @@ query getClientsBySeller{
 
 const IndexPage : React.FC = () : JSX.Element => {
   //Apollo query
-  const { data, loading } = useQuery(GET_CLIENTS_BY_SELLER);
+  const { data, loading, startPolling, stopPolling } = useQuery(GET_CLIENTS_BY_SELLER);
+
+  useEffect(() => {
+    
+    startPolling(100);
+    return () => {
+      stopPolling()
+    }
+  }, [stopPolling, startPolling]);
+  
 
   return (
     <>

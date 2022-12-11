@@ -1,23 +1,28 @@
 import { useReducer } from "react";
 import OrderCtx from "./OrderCtx";
-import OrderReducer from "./OrderReducer";
+import { OrderReducer } from "./OrderReducer";
 import { ClientType, OrderState, Product } from "../interfaces";
-import { CLIENT_ASIGNMENT, SELECT_PRODUCT, QTY_PRODUCTS, TOTAL_UPDATE } from '../types'
 
-const initialState : OrderState = {
-    client: {} as ClientType,
-    products: [],
-    total: 0
-}
+import { 
+    CLIENT_ASIGNMENT, 
+    SELECT_PRODUCT, 
+    QTY_PRODUCTS, 
+    TOTAL_UPDATE 
+} from '../types'
 
 interface OrderProviderProps {
     children : JSX.Element | JSX.Element[]
 }
 
 const OrderProvider = ( {children} : OrderProviderProps ) => {
-
-    const [ orderState, dispatch ] = useReducer(OrderReducer, initialState);
-
+    
+    const INITIAL_STATE : OrderState= {
+        client: {} as ClientType,
+        products: [],
+        total: 0
+    }
+    
+    const [ orderState, dispatch ] = useReducer(OrderReducer, INITIAL_STATE);
 
     const selectClient = (client : ClientType) => {
         dispatch({

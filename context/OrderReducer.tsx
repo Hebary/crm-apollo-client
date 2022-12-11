@@ -2,12 +2,12 @@ import {  Product, OrderState, ClientType } from '../interfaces';
 
 import { CLIENT_ASIGNMENT, SELECT_PRODUCT, QTY_PRODUCTS, TOTAL_UPDATE } from '../types'
 
-// export type OrderAction =  { type: 'CLIENT_ASIGNMENT', payload: ClientType } |
-//                     { type: 'SELECT_PRODUCT', payload: Product[] } | 
-//                     { type: 'QTY_PRODUCTS', payload: Product } | 
-//                     { type: 'TOTAL_UPDATE', payload: number } | any
+export type OrderAction =  { type: 'CLIENT_ASIGNMENT', payload: ClientType } |
+                           { type: 'SELECT_PRODUCT', payload: Product[] } | 
+                           { type: 'QTY_PRODUCTS', payload: Product } | 
+                           { type: 'TOTAL_UPDATE', payload: number }
 
-export default (state : any , action : any) => {
+export const OrderReducer = (state : OrderState , action : OrderAction) => {
 
     switch (action.type) {
         case CLIENT_ASIGNMENT:
@@ -19,7 +19,6 @@ export default (state : any , action : any) => {
             return {
                 ...state,
                 products: action.payload
-
             }
         case QTY_PRODUCTS:
             return {
@@ -31,7 +30,7 @@ export default (state : any , action : any) => {
                 ...state,
                 total: Number(state.products.reduce((newTotal : number, product : any) => newTotal += (product.price * product.qty), 0).toFixed(2))
             }
-        default:
-            return state;
+            default:
+                return state;
     }
 };

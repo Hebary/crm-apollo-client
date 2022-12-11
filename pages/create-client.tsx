@@ -1,12 +1,11 @@
-import React, { FC, useState } from 'react';
-import { Layout } from '../components/layout';
+import React, { useState } from 'react';
+import { NextRouter, useRouter } from 'next/router'
+import { gql, useMutation } from '@apollo/client';
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
-import { gql, useMutation } from '@apollo/client';
-import { NextRouter, useRouter } from 'next/router'
-import { NextPage } from 'next';
+import { Layout } from '../components/layout';
 import { Alert } from '../components/ui';
-import { Client } from '../interfaces';
+import { ClientType } from '../interfaces';
 
 
 
@@ -49,7 +48,7 @@ const CreateClient : React.FC = () : JSX.Element => {
         const [ newClient ] =  useMutation( NEW_CLIENT, {
             update(cache, { data: { newClient  } } ) {
             // get current cache object that we would like to update
-            const { getClientsBySeller } : Client[] | any = cache.readQuery({ query: GET_CLIENTS_BY_SELLER });
+            const { getClientsBySeller } : ClientType[] | any = cache.readQuery({ query: GET_CLIENTS_BY_SELLER });
             // Overwrite cache  (the cache never must be changed, only overwritten) 
             cache.writeQuery({
                 query: GET_CLIENTS_BY_SELLER,
@@ -59,7 +58,6 @@ const CreateClient : React.FC = () : JSX.Element => {
             })
         }
     })
-
 
     const formik = useFormik({
         initialValues: {
@@ -80,6 +78,7 @@ const CreateClient : React.FC = () : JSX.Element => {
                         .email('Email not valid') 
                         .required('Email is required'),
         }), 
+        
         onSubmit: async values => {
             const { name , lastname, company, email, phone } = values
 

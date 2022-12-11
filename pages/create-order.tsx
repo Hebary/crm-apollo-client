@@ -1,14 +1,13 @@
-import { NextRouter, useRouter } from 'next/router';
-import { NextPage } from 'next';
-import { Layout } from '../components/layout'
 import React, { useContext, useState } from 'react';
-import OrderCtx from '../context/OrderCtx'
-import { gql, IdGetter, useMutation } from '@apollo/client';
+import { NextRouter, useRouter } from 'next/router';
+import { gql, useMutation } from '@apollo/client';
 import Swal from 'sweetalert2';
-import { Product } from '../interfaces';
+import OrderCtx from '../context/OrderCtx'
+import { Layout } from '../components/layout'
 import { ClientAsignment, Summary, Total } from '../components/ui';
 import { ProductAsignment } from '../components/ui';
 import { Alert } from '../components/ui';
+import { Product } from '../interfaces';
 
 
 const NEW_ORDER = gql`
@@ -32,7 +31,6 @@ const CreateOrder: React.FC = () : JSX.Element =>  {
     
     const router : NextRouter = useRouter();
 
-
     const [ newOrder ] = useMutation(NEW_ORDER,{
         update(cache, { data: { newOrder } }) {
             const { getOrdersBySeller } : any = cache.readQuery({ query: GET_ORDERS })
@@ -43,14 +41,13 @@ const CreateOrder: React.FC = () : JSX.Element =>  {
                 }
             })
         }
-        
     })
 
-    const { orderState } = useContext(OrderCtx)
+    const { orderState } = useContext(OrderCtx);
     
     const [alert, setAlert] = useState<string | any>();
 
-    const orderValidator  = () => { 
+    const orderValidator  = () : boolean => { 
         return orderState.total > 0
     }
 
@@ -107,7 +104,7 @@ const CreateOrder: React.FC = () : JSX.Element =>  {
                     <div>
                         <button
                             type="button"
-                            className={`bg-gray-800 w-full p-2 text-white font-light tracking-wider text-xl hover:bg-black 
+                            className={`bg-gray-900 w-full p-2 text-white font-light tracking-wider text-xl hover:bg-black 
                             transition-colors duration-300 ${orderValidator() ? "":"cursor-not-allowed opacity-20"} `}
                             onClick= {() => createNewOrder()}
                         >Create Order</button>
