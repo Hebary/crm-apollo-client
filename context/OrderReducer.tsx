@@ -1,8 +1,11 @@
-import {  Product, OrderState } from '../interfaces';
+import {  Product, OrderState, ClientType } from '../interfaces';
 
 import { CLIENT_ASIGNMENT, SELECT_PRODUCT, QTY_PRODUCTS, TOTAL_UPDATE } from '../types'
 
-// type OrderAction =  { type: 'CLIENT_ASIGNMENT', payload: OrderState } | { type: 'SELECT_PRODUCT', payload: string } | { type: 'QTY_PRODUCTS', payload: number } ;
+// export type OrderAction =  { type: 'CLIENT_ASIGNMENT', payload: ClientType } |
+//                     { type: 'SELECT_PRODUCT', payload: Product[] } | 
+//                     { type: 'QTY_PRODUCTS', payload: Product } | 
+//                     { type: 'TOTAL_UPDATE', payload: number } | any
 
 export default (state : any , action : any) => {
 

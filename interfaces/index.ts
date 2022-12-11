@@ -4,7 +4,7 @@ export interface OrderState {
     total: 0
 }
 
-export interface Client {
+export interface ClientType {
     name: string;
     lastname: string;
     email: string;
@@ -12,6 +12,7 @@ export interface Client {
     id: string;
     phone?: string;
 }
+
 export interface Product {
     name: string;
     price: number;

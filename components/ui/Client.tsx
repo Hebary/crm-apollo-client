@@ -2,16 +2,10 @@ import { FC } from 'react'
 import { gql, useMutation } from '@apollo/client'
 import Swal from 'sweetalert2'
 import Router from 'next/router'
+import { ClientType } from '../../interfaces'
 
 interface ClientProps {
-    client: {
-        name: string
-        lastname: string
-        company: string
-        email: string
-        phone?: string
-        id: string
-    }
+    client: ClientType
 }
 
 const DELETE_CLIENT = gql`

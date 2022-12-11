@@ -16,7 +16,7 @@ const GET_CLIENTS_BY_SELLER = gql`
 
 `;
 
-import { Client } from '../../interfaces';
+import { ClientType } from '../../interfaces';
 
 export const ClientAsignment: FC = () => {
 
@@ -29,10 +29,10 @@ export const ClientAsignment: FC = () => {
   const [ client, setClient ] = useState({});
 
   useEffect(() => {
-    selectClient(client as Client)
+    selectClient(client as ClientType)
   }, [client]);
 
-  const selectOneClient = (client : Client) : void => {
+  const selectOneClient = (client : ClientType) : void => {
     setClient(client);
   }
 
@@ -46,10 +46,10 @@ export const ClientAsignment: FC = () => {
       <p className="font-bold text-white tracking-widest text-sm mb-3 px-5 py-2 bg-gray-500 border-l-4 border-black w-auto text-center">1. Select client</p>
       <Select
         options={getClientsBySeller}
-        onChange={(c) => selectOneClient(c)}
+        onChange={(c) => selectOneClient(c as ClientType)}
         // isMulti={true}
         placeholder="Select Client"
-        getOptionValue={(options : any)=> options.id}
+        getOptionValue={(options)=> options.id}
         getOptionLabel={(options : any)=> options.name}
         />
     </>

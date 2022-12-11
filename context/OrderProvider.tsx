@@ -1,11 +1,11 @@
+import { useReducer } from "react";
 import OrderCtx from "./OrderCtx";
 import OrderReducer from "./OrderReducer";
-import { Client, OrderState, Product, Products } from "../interfaces";
+import { ClientType, OrderState, Product } from "../interfaces";
 import { CLIENT_ASIGNMENT, SELECT_PRODUCT, QTY_PRODUCTS, TOTAL_UPDATE } from '../types'
-import { useReducer } from "react";
 
 const initialState : OrderState = {
-    client: {},
+    client: {} as ClientType,
     products: [],
     total: 0
 }
@@ -19,7 +19,7 @@ const OrderProvider = ( {children} : OrderProviderProps ) => {
     const [ orderState, dispatch ] = useReducer(OrderReducer, initialState);
 
 
-    const selectClient = (client : Client) => {
+    const selectClient = (client : ClientType) => {
         dispatch({
             type: CLIENT_ASIGNMENT,
             payload: client
@@ -30,7 +30,7 @@ const OrderProvider = ( {children} : OrderProviderProps ) => {
         //save the selected products in the state
         let newProducts : Product[] = [];
         if(orderState.products.length > 0) {
-            newProducts = selectedProducts.map((product : Product) => {
+            newProducts = selectedProducts.map((product) => {
                 const newObject = orderState.products.find((productState : Product) => productState.id === product.id);
                 return {...product, ...newObject}
             })

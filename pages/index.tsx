@@ -2,17 +2,10 @@ import { Layout } from '../components/layout'
 import { useQuery, gql } from '@apollo/client'
 import Link from 'next/link';
 import { Client } from '../components/ui'
-import React, { useEffect } from 'react';
-import { useRouter } from 'next/router';
+import React from 'react';
+import { ClientType } from '../interfaces';
 
-interface Client {
-  id: string
-  name: string
-  lastname: string
-  company: string
-  email: string
-  phone?: string
-}
+
 
 const GET_CLIENTS_BY_SELLER = gql`
 query getClientsBySeller{
@@ -43,7 +36,7 @@ const IndexPage : React.FC = () : JSX.Element => {
               {
                 data?.getClientsBySeller?.length !== 0 ?
                 <div className="border border-b-0 border-gray-700">
-                { data?.getClientsBySeller?.map( (client: Client) => (
+                { data?.getClientsBySeller?.map( (client: ClientType) => (
                   <Client
                   key={client.id}
                   client={client}
